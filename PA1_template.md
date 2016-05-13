@@ -21,7 +21,9 @@ histogram of the total number of steps taken each day
 
 ```r
 dat.daysum = aggregate(steps~date, data=dat.clean, sum)
-ggplot(dat.daysum, aes(x=date, y=steps)) + geom_bar(stat="identity")
+ggplot(aes(steps), data=dat.daysum) +
+    geom_histogram(binwidth=2500) +
+    ylab("number of days")
 ```
 
 ![](figure/unnamed-chunk-2-1.svg)<!-- -->
@@ -77,7 +79,7 @@ nrow(dat) - nrow(dat.clean)
 ## [1] 2304
 ```
 
-filling in all of the missing values in the dataset
+filling in all of the missing values in the dataset according to the mean for that 5-minute interval
 
 ```r
 dat.filled = dat
@@ -91,7 +93,9 @@ histogram of the total number of steps taken each day
 
 ```r
 dat.filled.daysum = aggregate(steps~date, data=dat.filled, sum)
-ggplot(dat.filled.daysum, aes(x=date, y=steps)) + geom_bar(stat="identity")
+ggplot(aes(steps), data=dat.filled.daysum) +
+    geom_histogram(binwidth=2500) +
+    ylab("number of days")
 ```
 
 ![](figure/unnamed-chunk-9-1.svg)<!-- -->
@@ -116,7 +120,7 @@ median(dat.filled.daysum$steps)
 ## [1] 10762
 ```
 
-It shows that these values differ from the estimates from the first part of the assignment. Imputing missing data on the estimates of the total daily number of steps makes the mean and median value smaller.
+It shows that these values differ from the estimates from the first part of the assignment. Imputing missing data makes the mean and median value smaller.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
